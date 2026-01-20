@@ -8,50 +8,54 @@
     <style>
         .bg-team {
             background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), 
-                        url('YOUR_TEAM_PHOTO_URL'); /* Replace with your image link */
+                        url('https://images.unsplash.com/photo-1599058917232-d750c8217672?q=80&w=2069&auto=format&fit=crop'); /* Placeholder: Replace with your team photo URL */
             background-size: cover;
             background-position: center;
         }
+        /* Vizcachas Brand Color */
+        .brand-bg { background-color: #273C31; }
+        .brand-text { color: #273C31; }
+        .brand-border-focus:focus { border-color: #273C31; }
     </style>
 </head>
 <body class="bg-team min-h-screen flex flex-col items-center justify-center p-6 text-white font-sans">
 
-    <img src="./VDB%20Logo_green%20bg%20v1.1.png" alt="Vizcachas Logo" class="absolute top-6 right-6 w-20 h-20 object-contain">
+    <img src="./VDB%20Logo_green%20bg%20v1.1.png" alt="Vizcachas Logo" class="absolute top-6 right-6 w-24 h-24 object-contain">
 
     <div class="text-center mb-8">
-        <h1 class="text-5xl font-black tracking-tighter uppercase italic">COME AND TRY!</h1>
+        <h1 class="text-5xl md:text-6xl font-black tracking-tighter uppercase italic">COME AND TRY!</h1>
     </div>
 
     <div class="bg-white/95 backdrop-blur-sm p-8 rounded-2xl shadow-2xl w-full max-w-md text-gray-900">
         <form id="joinForm" class="space-y-4">
             <div>
                 <label class="block text-xs font-bold uppercase text-gray-500">Full Name</label>
-                <input type="text" id="name" required class="w-full border-b-2 border-gray-300 py-2 focus:border-blue-600 outline-none transition">
+                <input type="text" id="name" required class="w-full border-b-2 border-gray-300 py-2 brand-border-focus outline-none transition">
             </div>
             <div class="flex gap-4">
                 <div class="w-1/2">
                     <label class="block text-xs font-bold uppercase text-gray-500">Weight (kg)</label>
-                    <input type="number" id="weight" required class="w-full border-b-2 border-gray-300 py-2 focus:border-blue-600 outline-none transition">
+                    <input type="number" id="weight" required class="w-full border-b-2 border-gray-300 py-2 brand-border-focus outline-none transition">
                 </div>
                 <div class="w-1/2">
                     <label class="block text-xs font-bold uppercase text-gray-500">Height (cm)</label>
-                    <input type="number" id="height" required class="w-full border-b-2 border-gray-300 py-2 focus:border-blue-600 outline-none transition">
+                    <input type="number" id="height" required class="w-full border-b-2 border-gray-300 py-2 brand-border-focus outline-none transition">
                 </div>
             </div>
             <div>
                 <label class="block text-xs font-bold uppercase text-gray-500">Email Address</label>
-                <input type="email" id="email" required class="w-full border-b-2 border-gray-300 py-2 focus:border-blue-600 outline-none transition">
+                <input type="email" id="email" required class="w-full border-b-2 border-gray-300 py-2 brand-border-focus outline-none transition">
             </div>
 
-            <button type="submit" class="w-full bg-blue-700 hover:bg-blue-800 text-white font-black py-4 rounded-lg uppercase tracking-widest transition transform hover:scale-105">
+            <button type="submit" class="w-full brand-bg hover:opacity-90 text-white font-black py-4 rounded-lg uppercase tracking-widest transition transform hover:scale-105 mt-2">
                 Submit Information
             </button>
         </form>
-        <p id="successMsg" class="hidden text-center text-green-600 font-bold mt-4">See you at the dock!</p>
+        <p id="successMsg" class="hidden text-center text-green-800 font-bold mt-4">Welcome to the team! See you at the dock.</p>
     </div>
 
     <div class="mt-10 text-center">
-        <p class="text-2xl font-bold bg-blue-700 px-4 py-1 inline-block">FIRST SESSION IS ON US!</p>
+        <h2 class="text-5xl md:text-6xl font-black tracking-tighter uppercase italic">FIRST SESSION IS ON US!</h2>
     </div>
 
     <script>
@@ -67,12 +71,22 @@
                 email: document.getElementById('email').value
             };
 
-            fetch(scriptURL, { method: 'POST', body: JSON.stringify(data)})
-                .then(res => {
-                    document.getElementById('successMsg').classList.remove('hidden');
-                    form.reset();
-                })
-                .catch(err => alert('Error submitting. Try again!'));
+            // Using 'no-cors' mode as Apps Script often requires it for simple POST redirects
+            fetch(scriptURL, { 
+                method: 'POST', 
+                mode: 'no-cors',
+                cache: 'no-cache',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            })
+            .then(() => {
+                document.getElementById('successMsg').classList.remove('hidden');
+                form.reset();
+            })
+            .catch(err => {
+                console.error('Error!', err.message);
+                alert('There was an error. Please try again!');
+            });
         });
     </script>
 </body>
