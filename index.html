@@ -70,35 +70,37 @@
     </div>
 
     <script>
-        const scriptURL = 'https://script.google.com/macros/s/AKfycbxF-DZ2skW0eC5WI0NrpVFRiXvRp1ozV88JLjiTVIX4SE0af1TKLGpVanzT1SmnFLAZ/exec'; 
-        const form = document.getElementById('joinForm');
-        const btn = document.getElementById('submitBtn');
-        const successArea = document.getElementById('successArea');
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbwNjpfY9IlaZgd1YwpWTlZ9CqYE277thAIUphQH0aTzrtwX1K2rVTD7BVXkt74_8TOM/exec'; 
+const form = document.getElementById('joinForm');
+const btn = document.getElementById('submitBtn');
+const successArea = document.getElementById('successArea');
 
-        form.addEventListener('submit', e => {
-            e.preventDefault();
-            btn.disabled = true;
-            btn.innerText = 'SENDING...';
-            
-            // Using FormData to ensure the script receives keys correctly
-            const formData = new FormData(form);
+form.addEventListener('submit', e => {
+    e.preventDefault();
+    btn.disabled = true;
+    btn.innerText = 'SENDING...';
 
-            fetch(scriptURL, { 
-                method: 'POST', 
-                mode: 'no-cors', // Essential for Google Apps Script
-                body: formData
-            })
-            .then(() => {
-                form.classList.add('hidden');
-                successArea.classList.remove('hidden');
-            })
-            .catch(err => {
-                console.error('Error!', err.message);
-                alert('Submission error. Please check your internet and try again!');
-                btn.disabled = false;
-                btn.innerText = 'SUBMIT INFORMATION';
-            });
-        });
+    // We use URLSearchParams to simulate a standard form submission
+    const params = new URLSearchParams(new FormData(form));
+
+    fetch(scriptURL, { 
+        method: 'POST', 
+        mode: 'no-cors', // MUST stay as no-cors
+        body: params 
+    })
+    .then(() => {
+        // Since no-cors doesn't return a readable response, 
+        // we assume success if the fetch doesn't 'catch' an error.
+        form.classList.add('hidden');
+        successArea.classList.remove('hidden');
+    })
+    .catch(err => {
+        console.error('Submission error:', err);
+        alert('Check connection and try again.');
+        btn.disabled = false;
+        btn.innerText = 'SUBMIT INFORMATION';
+    });
+});
     </script>
 </body>
 </html>
