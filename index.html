@@ -8,86 +8,57 @@
     <style>
         .bg-team {
             background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), 
-                        url('./VDB_Penang2022.jpg'); /* Placeholder: Replace with your team photo URL */
+                        url('./VDB_Penang2022.jpg'); 
             background-size: cover;
             background-position: center;
+            background-attachment: fixed;
         }
         /* Vizcachas Brand Color */
         .brand-bg { background-color: #273C31; }
-        .brand-text { color: #273C31; }
         .brand-border-focus:focus { border-color: #273C31; }
     </style>
 </head>
-<body class="bg-team min-h-screen flex flex-col items-center justify-center p-6 text-white font-sans">
+<body class="bg-team min-h-screen flex flex-col items-center justify-between p-4 text-white font-sans">
 
-    <img src="./VDB%20Logo_green%20bg%20v1.1.png" alt="Vizcachas Logo" class="absolute top-6 right-6 w-24 h-24 object-contain">
-
-    <div class="text-center mb-8">
-        <h1 class="text-5xl md:text-6xl font-black tracking-tighter uppercase italic">COME AND TRY!</h1>
+    <div class="w-full max-w-4xl flex flex-col md:flex-row items-center justify-between mt-4 mb-4 gap-4">
+        <div class="md:order-2">
+            <img src="./VDB%20Logo_green%20bg%20v1.1.png" alt="Vizcachas Logo" class="w-20 h-20 md:w-24 md:h-24 object-contain">
+        </div>
+        <div class="text-center md:text-left md:order-1">
+            <h1 class="text-4xl md:text-6xl font-black tracking-tighter uppercase italic leading-none">
+                COME AND <br class="hidden md:block"> TRY!
+            </h1>
+        </div>
     </div>
 
-    <div class="bg-white/95 backdrop-blur-sm p-8 rounded-2xl shadow-2xl w-full max-w-md text-gray-900">
+    <div class="bg-white/95 backdrop-blur-sm p-6 md:p-8 rounded-2xl shadow-2xl w-full max-w-md text-gray-900 my-4">
         <form id="joinForm" class="space-y-4">
             <div>
                 <label class="block text-xs font-bold uppercase text-gray-500">Full Name</label>
-                <input type="text" id="name" required class="w-full border-b-2 border-gray-300 py-2 brand-border-focus outline-none transition">
+                <input type="text" id="name" required class="w-full border-b-2 border-gray-300 py-2 brand-border-focus outline-none transition bg-transparent">
             </div>
             <div class="flex gap-4">
                 <div class="w-1/2">
                     <label class="block text-xs font-bold uppercase text-gray-500">Weight (kg)</label>
-                    <input type="number" id="weight" required class="w-full border-b-2 border-gray-300 py-2 brand-border-focus outline-none transition">
+                    <input type="number" id="weight" required class="w-full border-b-2 border-gray-300 py-2 brand-border-focus outline-none transition bg-transparent">
                 </div>
                 <div class="w-1/2">
                     <label class="block text-xs font-bold uppercase text-gray-500">Height (cm)</label>
-                    <input type="number" id="height" required class="w-full border-b-2 border-gray-300 py-2 brand-border-focus outline-none transition">
+                    <input type="number" id="height" required class="required w-full border-b-2 border-gray-300 py-2 brand-border-focus outline-none transition bg-transparent">
                 </div>
             </div>
             <div>
                 <label class="block text-xs font-bold uppercase text-gray-500">Email Address</label>
-                <input type="email" id="email" required class="w-full border-b-2 border-gray-300 py-2 brand-border-focus outline-none transition">
+                <input type="email" id="email" required class="w-full border-b-2 border-gray-300 py-2 brand-border-focus outline-none transition bg-transparent">
             </div>
 
-            <button type="submit" class="w-full brand-bg hover:opacity-90 text-white font-black py-4 rounded-lg uppercase tracking-widest transition transform hover:scale-105 mt-2">
+            <button type="submit" id="submitBtn" class="w-full brand-bg hover:opacity-90 text-white font-black py-4 rounded-lg uppercase tracking-widest transition transform active:scale-95 mt-2">
                 Submit Information
             </button>
         </form>
-        <p id="successMsg" class="hidden text-center text-green-800 font-bold mt-4">Welcome to the team! See you at the dock.</p>
+        <p id="successMsg" class="hidden text-center text-green-800 font-bold mt-4 italic">Welcome to the Vizcachas! See you at the dock.</p>
     </div>
 
-    <div class="mt-10 text-center">
-        <h2 class="text-5xl md:text-6xl font-black tracking-tighter uppercase italic">FIRST SESSION IS ON US!</h2>
-    </div>
-
-    <script>
-        const scriptURL = 'https://script.google.com/macros/s/AKfycbxF-DZ2skW0eC5WI0NrpVFRiXvRp1ozV88JLjiTVIX4SE0af1TKLGpVanzT1SmnFLAZ/exec'; 
-        const form = document.getElementById('joinForm');
-
-        form.addEventListener('submit', e => {
-            e.preventDefault();
-            const data = {
-                name: document.getElementById('name').value,
-                weight: document.getElementById('weight').value,
-                height: document.getElementById('height').value,
-                email: document.getElementById('email').value
-            };
-
-            // Using 'no-cors' mode as Apps Script often requires it for simple POST redirects
-            fetch(scriptURL, { 
-                method: 'POST', 
-                mode: 'no-cors',
-                cache: 'no-cache',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(data)
-            })
-            .then(() => {
-                document.getElementById('successMsg').classList.remove('hidden');
-                form.reset();
-            })
-            .catch(err => {
-                console.error('Error!', err.message);
-                alert('There was an error. Please try again!');
-            });
-        });
-    </script>
-</body>
-</html>
+    <div class="text-center mb-8">
+        <h2 class="text-4xl md:text-6xl font-black tracking-tighter uppercase italic leading-tight">
+            FIRST SESSION <br class="hidden
